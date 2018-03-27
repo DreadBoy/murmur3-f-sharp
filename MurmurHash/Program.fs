@@ -15,7 +15,7 @@ let murmur3 (key:string) seed =
     let hash = seed
 
     let rec hashAndBits (key:byte[]) (hash: uint32) (i:int) = 
-        if i >= key.Length-1 then hash
+        if i >= key.Length then hash
         elif i <= key.Length-4 then
             let mutable k = BitConverter.ToUInt32(key, i)
             k <- k * c1
@@ -27,16 +27,16 @@ let murmur3 (key:string) seed =
             hashAndBits key hash (i + 4)
         else
             // To naredi tisto z ostankom
-            let bytes = key |> Array.skip(i) |> Array.take(key.Length - 1 - i)
+            let bytes = key |> Seq.skip i |> Seq.take (key.Length - i) |> fun s -> Seq.append s [0uy; 0uy; 0uy] |> Seq.toArray
             let bytes = if not BitConverter.IsLittleEndian then bytes |> Array.rev else bytes
             let mutable k = BitConverter.ToUInt32(bytes, 0)
             k <- k * c1
             k <- (k <<< r1) ||| (k >>> 32-r1)
             k <- k * c2;
             let hash = hash ^^^ k
-            hashAndBits key hash (key.Length - 1)
+            hashAndBits key hash (key.Length)
 
-    let hash = hashAndBits bytes hash bytes.Length
+    let hash = hashAndBits bytes hash 0
     let hash = hash ^^^ (uint32)bytes.Length
 
     let hash = hash ^^^ (hash >>> 16)
@@ -54,10 +54,11 @@ let main argv =
     printfn "Enter ASCII string to encode"
     let key = Console.ReadLine()
     printfn "Enter uint32 seed (default 5)"
-    let seed = Console.ReadLine() |> fun line -> if line.Length = 0 then 5u else line |> uint32 
+    let seed = Console.ReadLine() |> fun line -> if line.Length = 0 then 5u else line |> uint32
     let result = murmur3 key seed
     printfn "Enter 'correct' value"
     let trueValue = Console.ReadLine() |> uint32
     printfn "You got %u which is %s" result (if trueValue = result then "correct" else "incorrect")
+    printfn "\nPress any key to exit..."
     Console.ReadKey() |> ignore
     0 // return an integer exit code
