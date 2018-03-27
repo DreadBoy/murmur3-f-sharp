@@ -1,6 +1,4 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open System
+﻿open System
 open System.Text
 
 let murmur3 (key:string) seed = 
@@ -26,7 +24,6 @@ let murmur3 (key:string) seed =
             let hash = hash * m + n
             hashAndBits key hash (i + 4)
         else
-            // To naredi tisto z ostankom
             let bytes = key |> Seq.skip i |> Seq.take (key.Length - i) |> fun s -> Seq.append s [0uy; 0uy; 0uy] |> Seq.toArray
             let bytes = if not BitConverter.IsLittleEndian then bytes |> Array.rev else bytes
             let mutable k = BitConverter.ToUInt32(bytes, 0)
@@ -61,4 +58,4 @@ let main argv =
     printfn "You got %u which is %s" result (if trueValue = result then "correct" else "incorrect")
     printfn "\nPress any key to exit..."
     Console.ReadKey() |> ignore
-    0 // return an integer exit code
+    0
