@@ -1,7 +1,7 @@
 namespace MurmurHashTest
 
-open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
+open Murmur3
 
 [<TestClass>]
 type TestClass () =
@@ -9,6 +9,10 @@ type TestClass () =
     [<TestMethod>]
     member this.TestMethodPassing () =
         Assert.IsTrue(true);
+
+    [<TestMethod>]
+    member this.EmptyString () =
+        Assert.Equals(murmur3 "" 5u, 3423425485u) 
 
     // testiraj edge case v podatkih
         // prazen string, 
