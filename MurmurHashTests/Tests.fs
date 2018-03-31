@@ -53,3 +53,244 @@ type TestClass () =
     // Tole se mi samo zdi, ampak mislim, da je moja implementacija tail-recursive in kolikor vem IL compiler optimizira tail-recursion
     // .dll sem dekompajlal z ildasm in preveril, da IL koda ne vsebuje klicev nazaj na enako funkcijo
     // Torej ne more nikoli priti do stack overflowa, ane?
+
+    (*
+    .method public strict virtual instance uint32 
+        Invoke(uint8[] key,
+               uint32 hash,
+               int32 i) cil managed
+{
+  // Code size       379 (0x17b)
+  .maxstack  9
+  .locals init (uint32 V_0,
+           uint32 V_1,
+           int32 V_2,
+           uint32 V_3,
+           int32 V_4,
+           uint32 V_5,
+           uint32 V_6,
+           uint32 V_7,
+           int32 V_8,
+           uint32 V_9,
+           int32 V_10,
+           uint32 V_11,
+           uint8[] V_12,
+           class [System.Runtime]System.Collections.Generic.IEnumerable`1<uint8> V_13,
+           class [System.Runtime]System.Collections.Generic.IEnumerable`1<uint8> V_14,
+           uint8[] V_15,
+           int32 V_16,
+           uint8[] V_17,
+           class [System.Runtime]System.Collections.Generic.IEnumerable`1<uint8> V_18,
+           uint8[] V_19,
+           uint32 V_20,
+           uint32 V_21,
+           int32 V_22,
+           uint32 V_23,
+           int32 V_24,
+           uint32 V_25)
+  IL_0000:  ldarg.3
+  IL_0001:  ldarg.1
+  IL_0002:  ldlen
+  IL_0003:  conv.i4
+  IL_0004:  blt.s      IL_0008
+  IL_0006:  br.s       IL_000a
+  IL_0008:  br.s       IL_000c
+  IL_000a:  ldarg.2
+  IL_000b:  ret
+  IL_000c:  ldarg.3
+  IL_000d:  ldarg.1
+  IL_000e:  ldlen
+  IL_000f:  conv.i4
+  IL_0010:  ldc.i4.4
+  IL_0011:  sub
+  IL_0012:  bgt.s      IL_0016
+  IL_0014:  br.s       IL_001b
+  IL_0016:  br         IL_00b0
+  IL_001b:  ldarg.1
+  IL_001c:  ldarg.3
+  IL_001d:  call       uint32 [System.Runtime.Extensions]System.BitConverter::ToUInt32(uint8[],
+                                                                                       int32)
+  IL_0022:  stloc.0
+  IL_0023:  ldloc.0
+  IL_0024:  ldarg.0
+  IL_0025:  ldfld      uint32 Murmur3/hashAndBits@21::c1
+  IL_002a:  mul
+  IL_002b:  stloc.0
+  IL_002c:  ldloc.0
+  IL_002d:  stloc.1
+  IL_002e:  ldarg.0
+  IL_002f:  ldfld      int32 Murmur3/hashAndBits@21::r1
+  IL_0034:  stloc.2
+  IL_0035:  ldloc.1
+  IL_0036:  ldloc.2
+  IL_0037:  ldc.i4.s   31
+  IL_0039:  and
+  IL_003a:  shl
+  IL_003b:  ldloc.0
+  IL_003c:  stloc.3
+  IL_003d:  ldc.i4.s   32
+  IL_003f:  ldarg.0
+  IL_0040:  ldfld      int32 Murmur3/hashAndBits@21::r1
+  IL_0045:  sub
+  IL_0046:  stloc.s    V_4
+  IL_0048:  ldloc.3
+  IL_0049:  ldloc.s    V_4
+  IL_004b:  ldc.i4.s   31
+  IL_004d:  and
+  IL_004e:  shr.un
+  IL_004f:  or
+  IL_0050:  stloc.0
+  IL_0051:  ldloc.0
+  IL_0052:  ldarg.0
+  IL_0053:  ldfld      uint32 Murmur3/hashAndBits@21::c2
+  IL_0058:  mul
+  IL_0059:  stloc.0
+  IL_005a:  ldarg.2
+  IL_005b:  ldloc.0
+  IL_005c:  xor
+  IL_005d:  stloc.s    V_5
+  IL_005f:  ldloc.s    V_5
+  IL_0061:  stloc.s    V_7
+  IL_0063:  ldarg.0
+  IL_0064:  ldfld      int32 Murmur3/hashAndBits@21::r2
+  IL_0069:  stloc.s    V_8
+  IL_006b:  ldloc.s    V_7
+  IL_006d:  ldloc.s    V_8
+  IL_006f:  ldc.i4.s   31
+  IL_0071:  and
+  IL_0072:  shl
+  IL_0073:  ldloc.s    V_5
+  IL_0075:  stloc.s    V_9
+  IL_0077:  ldc.i4.s   32
+  IL_0079:  ldarg.0
+  IL_007a:  ldfld      int32 Murmur3/hashAndBits@21::r2
+  IL_007f:  sub
+  IL_0080:  stloc.s    V_10
+  IL_0082:  ldloc.s    V_9
+  IL_0084:  ldloc.s    V_10
+  IL_0086:  ldc.i4.s   31
+  IL_0088:  and
+  IL_0089:  shr.un
+  IL_008a:  or
+  IL_008b:  stloc.s    V_6
+  IL_008d:  ldloc.s    V_6
+  IL_008f:  ldarg.0
+  IL_0090:  ldfld      uint32 Murmur3/hashAndBits@21::m
+  IL_0095:  mul
+  IL_0096:  ldarg.0
+  IL_0097:  ldfld      uint32 Murmur3/hashAndBits@21::n
+  IL_009c:  add
+  IL_009d:  stloc.s    V_11
+  IL_009f:  ldarg.1
+  IL_00a0:  ldloc.s    V_11
+  IL_00a2:  ldarg.3
+  IL_00a3:  ldc.i4.4
+  IL_00a4:  add
+  IL_00a5:  starg.s    i
+  IL_00a7:  starg.s    hash
+  IL_00a9:  starg.s    key
+  IL_00ab:  br         IL_0000
+  IL_00b0:  ldarg.1
+  IL_00b1:  stloc.s    V_15
+  IL_00b3:  ldarg.3
+  IL_00b4:  stloc.s    V_16
+  IL_00b6:  ldloc.s    V_15
+  IL_00b8:  stloc.s    V_17
+  IL_00ba:  ldloc.s    V_16
+  IL_00bc:  ldloc.s    V_17
+  IL_00be:  call       class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0> [FSharp.Core]Microsoft.FSharp.Collections.SeqModule::Skip<uint8>(int32,
+                                                                                                                                                            class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0>)
+  IL_00c3:  stloc.s    V_14
+  IL_00c5:  ldarg.1
+  IL_00c6:  ldlen
+  IL_00c7:  conv.i4
+  IL_00c8:  ldarg.3
+  IL_00c9:  sub
+  IL_00ca:  ldloc.s    V_14
+  IL_00cc:  call       class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0> [FSharp.Core]Microsoft.FSharp.Collections.SeqModule::Take<uint8>(int32,
+                                                                                                                                                            class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0>)
+  IL_00d1:  stloc.s    V_13
+  IL_00d3:  ldloc.s    V_13
+  IL_00d5:  stloc.s    V_18
+  IL_00d7:  ldloc.s    V_18
+  IL_00d9:  ldc.i4.0
+  IL_00da:  ldc.i4.0
+  IL_00db:  ldc.i4.0
+  IL_00dc:  call       class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0> class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<uint8>::get_Empty()
+  IL_00e1:  call       class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0> class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<uint8>::Cons(!0,
+                                                                                                                                                                  class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0>)
+  IL_00e6:  call       class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0> class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<uint8>::Cons(!0,
+                                                                                                                                                                  class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0>)
+  IL_00eb:  call       class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0> class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<uint8>::Cons(!0,
+                                                                                                                                                                  class [FSharp.Core]Microsoft.FSharp.Collections.FSharpList`1<!0>)
+  IL_00f0:  call       class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0> [FSharp.Core]Microsoft.FSharp.Collections.SeqModule::Append<uint8>(class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0>,
+                                                                                                                                                              class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0>)
+  IL_00f5:  call       !!0[] [FSharp.Core]Microsoft.FSharp.Collections.SeqModule::ToArray<uint8>(class [System.Runtime]System.Collections.Generic.IEnumerable`1<!!0>)
+  IL_00fa:  stloc.s    V_12
+  IL_00fc:  ldsfld     bool [System.Runtime.Extensions]System.BitConverter::IsLittleEndian
+  IL_0101:  brtrue.s   IL_0105
+  IL_0103:  br.s       IL_0107
+  IL_0105:  br.s       IL_0111
+  IL_0107:  ldloc.s    V_12
+  IL_0109:  call       !!0[] [FSharp.Core]Microsoft.FSharp.Collections.ArrayModule::Reverse<uint8>(!!0[])
+  IL_010e:  nop
+  IL_010f:  br.s       IL_0114
+  IL_0111:  ldloc.s    V_12
+  IL_0113:  nop
+  IL_0114:  stloc.s    V_19
+  IL_0116:  ldloc.s    V_19
+  IL_0118:  ldc.i4.0
+  IL_0119:  call       uint32 [System.Runtime.Extensions]System.BitConverter::ToUInt32(uint8[],
+                                                                                       int32)
+  IL_011e:  stloc.s    V_20
+  IL_0120:  ldloc.s    V_20
+  IL_0122:  ldarg.0
+  IL_0123:  ldfld      uint32 Murmur3/hashAndBits@21::c1
+  IL_0128:  mul
+  IL_0129:  stloc.s    V_20
+  IL_012b:  ldloc.s    V_20
+  IL_012d:  stloc.s    V_21
+  IL_012f:  ldarg.0
+  IL_0130:  ldfld      int32 Murmur3/hashAndBits@21::r1
+  IL_0135:  stloc.s    V_22
+  IL_0137:  ldloc.s    V_21
+  IL_0139:  ldloc.s    V_22
+  IL_013b:  ldc.i4.s   31
+  IL_013d:  and
+  IL_013e:  shl
+  IL_013f:  ldloc.s    V_20
+  IL_0141:  stloc.s    V_23
+  IL_0143:  ldc.i4.s   32
+  IL_0145:  ldarg.0
+  IL_0146:  ldfld      int32 Murmur3/hashAndBits@21::r1
+  IL_014b:  sub
+  IL_014c:  stloc.s    V_24
+  IL_014e:  ldloc.s    V_23
+  IL_0150:  ldloc.s    V_24
+  IL_0152:  ldc.i4.s   31
+  IL_0154:  and
+  IL_0155:  shr.un
+  IL_0156:  or
+  IL_0157:  stloc.s    V_20
+  IL_0159:  ldloc.s    V_20
+  IL_015b:  ldarg.0
+  IL_015c:  ldfld      uint32 Murmur3/hashAndBits@21::c2
+  IL_0161:  mul
+  IL_0162:  stloc.s    V_20
+  IL_0164:  ldarg.2
+  IL_0165:  ldloc.s    V_20
+  IL_0167:  xor
+  IL_0168:  stloc.s    V_25
+  IL_016a:  ldarg.1
+  IL_016b:  ldloc.s    V_25
+  IL_016d:  ldarg.1
+  IL_016e:  ldlen
+  IL_016f:  conv.i4
+  IL_0170:  starg.s    i
+  IL_0172:  starg.s    hash
+  IL_0174:  starg.s    key
+  IL_0176:  br         IL_0000
+} // end of method hashAndBits@21::Invoke
+
+
+    *)
