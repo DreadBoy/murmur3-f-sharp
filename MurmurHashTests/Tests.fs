@@ -50,3 +50,6 @@ type TestClass () =
         // posebni znaki
 
     // testiraj dolžino stringa (lahko pride do stack overflowa?)
+    // Tole se mi samo zdi, ampak mislim, da je moja implementacija tail-recursive in kolikor vem IL compiler optimizira tail-recursion
+    // .dll sem dekompajlal z ildasm in preveril, da IL koda ne vsebuje klicev nazaj na enako funkcijo
+    // Torej ne more nikoli priti do stack overflowa, ane?
