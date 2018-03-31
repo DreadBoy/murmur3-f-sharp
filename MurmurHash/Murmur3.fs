@@ -11,6 +11,9 @@ open System.Text
         let m = 5u
         let n = 0xe6546b64u
 
+        if Encoding.UTF8.GetByteCount(key) <> key.Length then
+            raise (ArgumentException("Expected to get ASCII string, got UTF8 instead."))
+
         let bytes = Encoding.ASCII.GetBytes key
         let hash = seed
 
